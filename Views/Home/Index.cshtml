@@ -1,0 +1,58 @@
+﻿@model Products
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1><a href="/products">Products </a> | <a href="/Categories"> Categories</a></h1>
+    <table class="table table-striped">
+            <tr>
+                <th><h1>New Product</h1></th>
+                <th><h1>Existing Products</h1></th>
+            </tr>
+                    <tr>
+                        <form asp-action="CreateProducts" asp-controller="Home" method="POST">
+                            <tr>
+                                <td>
+                                    <span asp-validation-for="Name"></span>
+                                    <label asp-for="Name"></label>
+                                    <input type="text" asp-for="Name" value=""/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span asp-validation-for="Description"></span>
+                                    <label asp-for="Description"></label>
+                                    <textarea type="text" asp-for="Description" value="" cols="50" rows="5"></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span asp-validation-for="Price"></span>
+                                    <label asp-for="Price"></label>
+                                    <input type="text" asp-for="Price" value=""/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="submit" value="Submit"/></td>
+                            </tr>
+                        </form>
+                        
+                     @foreach(var products in @ViewBag.Products)
+                                {
+                                    <tr>
+                                    <td><a href="/products/@products.ProductId">@products.Name</a></td>
+                                    </tr>
+                                }
+                    
+                        
+            </tr>
+            
+        </table>
+    
+</body>
+</html>

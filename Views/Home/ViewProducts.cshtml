@@ -1,0 +1,59 @@
+@model WrapperViewModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>@Model.NewProducts.Name</h1>
+    
+    <table>
+        <thead>
+            <th>Categories: </th>
+            <th>Add Category: </th>
+        </thead>
+        <tbody>
+            <tr>
+                 @foreach(Products a in @Model.ListProducts){
+            
+                @foreach(Associations b in a.myAssociation){
+               
+                @if(b.ProductId == a.ProductId){
+                     <tr>
+                    <td>@b.getCategory.Name</td>
+                    </tr>
+                }
+                
+            }
+            
+        }
+                @* <td>
+                    @{foreach(Associations m in @Model.NewProducts.myAssociation){
+                        <td>@m.getCategory</td>
+                    }}
+                </td> *@
+                <td>
+                <form asp-action="AddCategories" asp-controller="Home" method="Post" asp-route-ProductId="@Model.NewProducts.ProductId">
+                  <td><select asp-for="association.CategoryId">
+                      
+                        @{foreach(Categories i in @Model.ListCategories){
+                       
+                                @if(!@Model.NewProducts.myAssociation.Any(a => a.CategoryId == i.CategoryId)){ 
+                                    <option value="@i.CategoryId">@i.Name</option>
+                                 }
+                           
+                        }
+                        }
+                    </select>
+                     <input type="submit" value="Add Category"/></td>
+                </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+</body>
+</html>
